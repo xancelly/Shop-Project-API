@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="52d551ee71844f5787ee5dbf9072afdf" Name="Diagram1">
+        <EntityTypeShape EntityType="ShopDBModel.category" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBModel.good" Width="1.5" PointX="3" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBModel.good_parameter" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBModel.good_price" Width="1.5" PointX="5.25" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBModel.good_rate" Width="1.5" PointX="8.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBModel.good_tax" Width="1.5" PointX="5.25" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBModel.manufacturer" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBModel.order" Width="1.5" PointX="3" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBModel.order_good" Width="1.5" PointX="5.25" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBModel.order_status" Width="1.5" PointX="0.75" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBModel.user_profile" Width="1.5" PointX="6" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBModel.get_category" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBModel.get_goods" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBModel.get_manufacturer" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="ShopDBModel.FK__good__code_categ__2A4B4B5E" ManuallyRouted="false" />
+        <AssociationConnector Association="ShopDBModel.FK__good__id_manufac__2B3F6F97" ManuallyRouted="false" />
+        <AssociationConnector Association="ShopDBModel.FK__good_para__artic__33D4B598" ManuallyRouted="false" />
+        <AssociationConnector Association="ShopDBModel.FK__good_pric__artic__37A5467C" ManuallyRouted="false" />
+        <AssociationConnector Association="ShopDBModel.FK__good_rate__artic__2E1BDC42" ManuallyRouted="false" />
+        <AssociationConnector Association="ShopDBModel.FK__good_tax__articl__3A81B327" ManuallyRouted="false" />
+        <AssociationConnector Association="ShopDBModel.FK__order_goo__artic__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="ShopDBModel.FK__good_rate__id_us__2F10007B" ManuallyRouted="false" />
+        <AssociationConnector Association="ShopDBModel.FK__order__id_status__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="ShopDBModel.FK__order__id_user__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="ShopDBModel.FK__order_goo__id_or__4316F928" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

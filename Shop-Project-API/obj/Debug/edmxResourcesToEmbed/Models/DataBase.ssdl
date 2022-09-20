@@ -1,0 +1,451 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище ShopDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="category">
+    <Key>
+      <PropertyRef Name="code_category" />
+    </Key>
+    <Property Name="code_category" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="good">
+    <Key>
+      <PropertyRef Name="article_number" />
+    </Key>
+    <Property Name="article_number" Type="int" Nullable="false" />
+    <Property Name="photo" Type="nvarchar(max)" />
+    <Property Name="name" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="descrtiption" Type="nvarchar(max)" />
+    <Property Name="code_category" Type="int" Nullable="false" />
+    <Property Name="id_manufacturer" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="good_parameter">
+    <Key>
+      <PropertyRef Name="id_good_parameter" />
+    </Key>
+    <Property Name="id_good_parameter" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="article_number" Type="int" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="value" Type="nvarchar" MaxLength="150" Nullable="false" />
+  </EntityType>
+  <EntityType Name="good_price">
+    <Key>
+      <PropertyRef Name="id_good_price" />
+    </Key>
+    <Property Name="id_good_price" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="article_number" Type="int" Nullable="false" />
+    <Property Name="price" Type="money" Nullable="false" />
+    <Property Name="change_date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="good_rate">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="article_number" Type="int" Nullable="false" />
+    <Property Name="id_user" Type="int" Nullable="false" />
+    <Property Name="rate" Type="int" Nullable="false" />
+    <Property Name="feedback" Type="nvarchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="good_tax">
+    <Key>
+      <PropertyRef Name="id_good_tax" />
+    </Key>
+    <Property Name="id_good_tax" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="article_number" Type="int" Nullable="false" />
+    <Property Name="tax" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+    <Property Name="change_date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="manufacturer">
+    <Key>
+      <PropertyRef Name="id_manufacturer" />
+    </Key>
+    <Property Name="id_manufacturer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="150" Nullable="false" />
+  </EntityType>
+  <EntityType Name="order">
+    <Key>
+      <PropertyRef Name="code_order" />
+    </Key>
+    <Property Name="code_order" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="date_order" Type="datetime" Nullable="false" />
+    <Property Name="id_status" Type="int" Nullable="false" />
+    <Property Name="id_user" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="order_good">
+    <Key>
+      <PropertyRef Name="id_order_good" />
+    </Key>
+    <Property Name="id_order_good" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_order" Type="int" Nullable="false" />
+    <Property Name="article_number" Type="int" Nullable="false" />
+    <Property Name="count" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="order_status">
+    <Key>
+      <PropertyRef Name="id_status" />
+    </Key>
+    <Property Name="id_status" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="user_profile">
+    <Key>
+      <PropertyRef Name="id_user" />
+    </Key>
+    <Property Name="id_user" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="last_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="first_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="middle_name" Type="nvarchar" MaxLength="50" />
+    <Property Name="phone_number" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="password" Type="nvarchar" MaxLength="32" Nullable="false" />
+    <Property Name="is_admin" Type="bit" Nullable="false" />
+  </EntityType>
+  <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "ShopDB.dbo.get_category" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+  <EntityType Name="get_category">
+    <Key>
+      <PropertyRef Name="code_category" />
+      <PropertyRef Name="name" />
+    </Key>
+    <Property Name="code_category" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "ShopDB.dbo.get_goods" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+  <EntityType Name="get_goods">
+    <Key>
+      <PropertyRef Name="article_number" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="category_name" />
+      <PropertyRef Name="manufacturer_name" />
+    </Key>
+    <Property Name="article_number" Type="int" Nullable="false" />
+    <Property Name="photo" Type="nvarchar(max)" />
+    <Property Name="name" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="descrtiption" Type="nvarchar(max)" />
+    <Property Name="category_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="manufacturer_name" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="price" Type="decimal" Precision="30" Scale="10" />
+  </EntityType>
+  <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "ShopDB.dbo.get_manufacturer" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+  <EntityType Name="get_manufacturer">
+    <Key>
+      <PropertyRef Name="id_manufacturer" />
+      <PropertyRef Name="name" />
+    </Key>
+    <Property Name="id_manufacturer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="150" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__good__code_categ__2A4B4B5E">
+    <End Role="category" Type="Self.category" Multiplicity="1" />
+    <End Role="good" Type="Self.good" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="category">
+        <PropertyRef Name="code_category" />
+      </Principal>
+      <Dependent Role="good">
+        <PropertyRef Name="code_category" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__good__id_manufac__2B3F6F97">
+    <End Role="manufacturer" Type="Self.manufacturer" Multiplicity="1" />
+    <End Role="good" Type="Self.good" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="manufacturer">
+        <PropertyRef Name="id_manufacturer" />
+      </Principal>
+      <Dependent Role="good">
+        <PropertyRef Name="id_manufacturer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__good_para__artic__33D4B598">
+    <End Role="good" Type="Self.good" Multiplicity="1" />
+    <End Role="good_parameter" Type="Self.good_parameter" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="good">
+        <PropertyRef Name="article_number" />
+      </Principal>
+      <Dependent Role="good_parameter">
+        <PropertyRef Name="article_number" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__good_pric__artic__37A5467C">
+    <End Role="good" Type="Self.good" Multiplicity="1" />
+    <End Role="good_price" Type="Self.good_price" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="good">
+        <PropertyRef Name="article_number" />
+      </Principal>
+      <Dependent Role="good_price">
+        <PropertyRef Name="article_number" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__good_rate__artic__2E1BDC42">
+    <End Role="good" Type="Self.good" Multiplicity="1" />
+    <End Role="good_rate" Type="Self.good_rate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="good">
+        <PropertyRef Name="article_number" />
+      </Principal>
+      <Dependent Role="good_rate">
+        <PropertyRef Name="article_number" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__good_rate__id_us__2F10007B">
+    <End Role="user_profile" Type="Self.user_profile" Multiplicity="1" />
+    <End Role="good_rate" Type="Self.good_rate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_profile">
+        <PropertyRef Name="id_user" />
+      </Principal>
+      <Dependent Role="good_rate">
+        <PropertyRef Name="id_user" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__good_tax__articl__3A81B327">
+    <End Role="good" Type="Self.good" Multiplicity="1" />
+    <End Role="good_tax" Type="Self.good_tax" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="good">
+        <PropertyRef Name="article_number" />
+      </Principal>
+      <Dependent Role="good_tax">
+        <PropertyRef Name="article_number" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__order__id_status__3F466844">
+    <End Role="order_status" Type="Self.order_status" Multiplicity="1" />
+    <End Role="order" Type="Self.order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="order_status">
+        <PropertyRef Name="id_status" />
+      </Principal>
+      <Dependent Role="order">
+        <PropertyRef Name="id_status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__order__id_user__403A8C7D">
+    <End Role="user_profile" Type="Self.user_profile" Multiplicity="1" />
+    <End Role="order" Type="Self.order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_profile">
+        <PropertyRef Name="id_user" />
+      </Principal>
+      <Dependent Role="order">
+        <PropertyRef Name="id_user" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__order_goo__artic__440B1D61">
+    <End Role="good" Type="Self.good" Multiplicity="1" />
+    <End Role="order_good" Type="Self.order_good" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="good">
+        <PropertyRef Name="article_number" />
+      </Principal>
+      <Dependent Role="order_good">
+        <PropertyRef Name="article_number" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__order_goo__id_or__4316F928">
+    <End Role="order" Type="Self.order" Multiplicity="1" />
+    <End Role="order_good" Type="Self.order_good" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="order">
+        <PropertyRef Name="code_order" />
+      </Principal>
+      <Dependent Role="order_good">
+        <PropertyRef Name="id_order" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="add_good" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="article_number" Type="int" Mode="In" />
+    <Parameter Name="photo" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="name" Type="nvarchar" Mode="In" />
+    <Parameter Name="description" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="code_category" Type="int" Mode="In" />
+    <Parameter Name="id_manufacturer" Type="int" Mode="In" />
+    <Parameter Name="price" Type="money" Mode="In" />
+    <Parameter Name="tax" Type="decimal" Mode="In" />
+  </Function>
+  <Function Name="add_order" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id_user" Type="int" Mode="In" />
+  </Function>
+  <Function Name="delete_good" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="article_number" Type="int" Mode="In" />
+  </Function>
+  <Function Name="delete_order" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="code_order" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="get_good" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="article_number" Type="int" Mode="In" />
+  </Function>
+  <Function Name="get_good_parameter" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="article_code" Type="int" Mode="In" />
+  </Function>
+  <Function Name="get_order" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="code_order" Type="int" Mode="In" />
+  </Function>
+  <Function Name="get_user_orders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id_user" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SignIn" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="phone_number" Type="nvarchar" Mode="In" />
+    <Parameter Name="password" Type="nvarchar" Mode="In" />
+    <Parameter Name="id_user" Type="int" Mode="InOut" />
+    <Parameter Name="is_admin" Type="bit" Mode="InOut" />
+  </Function>
+  <Function Name="SignUp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="last_name" Type="nvarchar" Mode="In" />
+    <Parameter Name="first_name" Type="nvarchar" Mode="In" />
+    <Parameter Name="middle_name" Type="nvarchar" Mode="In" />
+    <Parameter Name="phone_number" Type="nvarchar" Mode="In" />
+    <Parameter Name="password" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="update_good" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="article_number" Type="int" Mode="In" />
+    <Parameter Name="photo" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="name" Type="nvarchar" Mode="In" />
+    <Parameter Name="description" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="code_category" Type="int" Mode="In" />
+    <Parameter Name="id_manufacturer" Type="int" Mode="In" />
+    <Parameter Name="price" Type="money" Mode="In" />
+    <Parameter Name="tax" Type="decimal" Mode="In" />
+  </Function>
+  <Function Name="update_order" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="code_order" Type="int" Mode="In" />
+    <Parameter Name="id_status" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="Хранилище ShopDBModelContainer">
+    <EntitySet Name="category" EntityType="Self.category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="good" EntityType="Self.good" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="good_parameter" EntityType="Self.good_parameter" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="good_price" EntityType="Self.good_price" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="good_rate" EntityType="Self.good_rate" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="good_tax" EntityType="Self.good_tax" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="manufacturer" EntityType="Self.manufacturer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="order" EntityType="Self.order" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="order_good" EntityType="Self.order_good" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="order_status" EntityType="Self.order_status" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user_profile" EntityType="Self.user_profile" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="get_category" EntityType="Self.get_category" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [get_category].[code_category] AS [code_category], 
+    [get_category].[name] AS [name]
+    FROM [dbo].[get_category] AS [get_category]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="get_goods" EntityType="Self.get_goods" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [get_goods].[article_number] AS [article_number], 
+    [get_goods].[photo] AS [photo], 
+    [get_goods].[name] AS [name], 
+    [get_goods].[descrtiption] AS [descrtiption], 
+    [get_goods].[category_name] AS [category_name], 
+    [get_goods].[manufacturer_name] AS [manufacturer_name], 
+    [get_goods].[price] AS [price]
+    FROM [dbo].[get_goods] AS [get_goods]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="get_manufacturer" EntityType="Self.get_manufacturer" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [get_manufacturer].[id_manufacturer] AS [id_manufacturer], 
+    [get_manufacturer].[name] AS [name]
+    FROM [dbo].[get_manufacturer] AS [get_manufacturer]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__good__code_categ__2A4B4B5E" Association="Self.FK__good__code_categ__2A4B4B5E">
+      <End Role="category" EntitySet="category" />
+      <End Role="good" EntitySet="good" />
+    </AssociationSet>
+    <AssociationSet Name="FK__good__id_manufac__2B3F6F97" Association="Self.FK__good__id_manufac__2B3F6F97">
+      <End Role="manufacturer" EntitySet="manufacturer" />
+      <End Role="good" EntitySet="good" />
+    </AssociationSet>
+    <AssociationSet Name="FK__good_para__artic__33D4B598" Association="Self.FK__good_para__artic__33D4B598">
+      <End Role="good" EntitySet="good" />
+      <End Role="good_parameter" EntitySet="good_parameter" />
+    </AssociationSet>
+    <AssociationSet Name="FK__good_pric__artic__37A5467C" Association="Self.FK__good_pric__artic__37A5467C">
+      <End Role="good" EntitySet="good" />
+      <End Role="good_price" EntitySet="good_price" />
+    </AssociationSet>
+    <AssociationSet Name="FK__good_rate__artic__2E1BDC42" Association="Self.FK__good_rate__artic__2E1BDC42">
+      <End Role="good" EntitySet="good" />
+      <End Role="good_rate" EntitySet="good_rate" />
+    </AssociationSet>
+    <AssociationSet Name="FK__good_rate__id_us__2F10007B" Association="Self.FK__good_rate__id_us__2F10007B">
+      <End Role="user_profile" EntitySet="user_profile" />
+      <End Role="good_rate" EntitySet="good_rate" />
+    </AssociationSet>
+    <AssociationSet Name="FK__good_tax__articl__3A81B327" Association="Self.FK__good_tax__articl__3A81B327">
+      <End Role="good" EntitySet="good" />
+      <End Role="good_tax" EntitySet="good_tax" />
+    </AssociationSet>
+    <AssociationSet Name="FK__order__id_status__3F466844" Association="Self.FK__order__id_status__3F466844">
+      <End Role="order_status" EntitySet="order_status" />
+      <End Role="order" EntitySet="order" />
+    </AssociationSet>
+    <AssociationSet Name="FK__order__id_user__403A8C7D" Association="Self.FK__order__id_user__403A8C7D">
+      <End Role="user_profile" EntitySet="user_profile" />
+      <End Role="order" EntitySet="order" />
+    </AssociationSet>
+    <AssociationSet Name="FK__order_goo__artic__440B1D61" Association="Self.FK__order_goo__artic__440B1D61">
+      <End Role="good" EntitySet="good" />
+      <End Role="order_good" EntitySet="order_good" />
+    </AssociationSet>
+    <AssociationSet Name="FK__order_goo__id_or__4316F928" Association="Self.FK__order_goo__id_or__4316F928">
+      <End Role="order" EntitySet="order" />
+      <End Role="order_good" EntitySet="order_good" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,487 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ShopDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="category">
+    <Key>
+      <PropertyRef Name="code_category" />
+    </Key>
+    <Property Name="code_category" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="good" Relationship="Self.FK__good__code_categ__2A4B4B5E" FromRole="category" ToRole="good" />
+  </EntityType>
+  <EntityType Name="good">
+    <Key>
+      <PropertyRef Name="article_number" />
+    </Key>
+    <Property Name="article_number" Type="Int32" Nullable="false" />
+    <Property Name="photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="descrtiption" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="code_category" Type="Int32" Nullable="false" />
+    <Property Name="id_manufacturer" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="category" Relationship="Self.FK__good__code_categ__2A4B4B5E" FromRole="good" ToRole="category" />
+    <NavigationProperty Name="manufacturer" Relationship="Self.FK__good__id_manufac__2B3F6F97" FromRole="good" ToRole="manufacturer" />
+    <NavigationProperty Name="good_parameter" Relationship="Self.FK__good_para__artic__33D4B598" FromRole="good" ToRole="good_parameter" />
+    <NavigationProperty Name="good_price" Relationship="Self.FK__good_pric__artic__37A5467C" FromRole="good" ToRole="good_price" />
+    <NavigationProperty Name="good_rate" Relationship="Self.FK__good_rate__artic__2E1BDC42" FromRole="good" ToRole="good_rate" />
+    <NavigationProperty Name="good_tax" Relationship="Self.FK__good_tax__articl__3A81B327" FromRole="good" ToRole="good_tax" />
+    <NavigationProperty Name="order_good" Relationship="Self.FK__order_goo__artic__440B1D61" FromRole="good" ToRole="order_good" />
+  </EntityType>
+  <EntityType Name="good_parameter">
+    <Key>
+      <PropertyRef Name="id_good_parameter" />
+    </Key>
+    <Property Name="id_good_parameter" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="article_number" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="value" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="good" Relationship="Self.FK__good_para__artic__33D4B598" FromRole="good_parameter" ToRole="good" />
+  </EntityType>
+  <EntityType Name="good_price">
+    <Key>
+      <PropertyRef Name="id_good_price" />
+    </Key>
+    <Property Name="id_good_price" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="article_number" Type="Int32" Nullable="false" />
+    <Property Name="price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="change_date" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="good" Relationship="Self.FK__good_pric__artic__37A5467C" FromRole="good_price" ToRole="good" />
+  </EntityType>
+  <EntityType Name="good_rate">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="article_number" Type="Int32" Nullable="false" />
+    <Property Name="id_user" Type="Int32" Nullable="false" />
+    <Property Name="rate" Type="Int32" Nullable="false" />
+    <Property Name="feedback" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="good" Relationship="Self.FK__good_rate__artic__2E1BDC42" FromRole="good_rate" ToRole="good" />
+    <NavigationProperty Name="user_profile" Relationship="Self.FK__good_rate__id_us__2F10007B" FromRole="good_rate" ToRole="user_profile" />
+  </EntityType>
+  <EntityType Name="good_tax">
+    <Key>
+      <PropertyRef Name="id_good_tax" />
+    </Key>
+    <Property Name="id_good_tax" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="article_number" Type="Int32" Nullable="false" />
+    <Property Name="tax" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+    <Property Name="change_date" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="good" Relationship="Self.FK__good_tax__articl__3A81B327" FromRole="good_tax" ToRole="good" />
+  </EntityType>
+  <EntityType Name="manufacturer">
+    <Key>
+      <PropertyRef Name="id_manufacturer" />
+    </Key>
+    <Property Name="id_manufacturer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="good" Relationship="Self.FK__good__id_manufac__2B3F6F97" FromRole="manufacturer" ToRole="good" />
+  </EntityType>
+  <EntityType Name="order">
+    <Key>
+      <PropertyRef Name="code_order" />
+    </Key>
+    <Property Name="code_order" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="date_order" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="id_status" Type="Int32" Nullable="false" />
+    <Property Name="id_user" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="order_status" Relationship="Self.FK__order__id_status__3F466844" FromRole="order" ToRole="order_status" />
+    <NavigationProperty Name="user_profile" Relationship="Self.FK__order__id_user__403A8C7D" FromRole="order" ToRole="user_profile" />
+    <NavigationProperty Name="order_good" Relationship="Self.FK__order_goo__id_or__4316F928" FromRole="order" ToRole="order_good" />
+  </EntityType>
+  <EntityType Name="order_good">
+    <Key>
+      <PropertyRef Name="id_order_good" />
+    </Key>
+    <Property Name="id_order_good" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_order" Type="Int32" Nullable="false" />
+    <Property Name="article_number" Type="Int32" Nullable="false" />
+    <Property Name="count" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="good" Relationship="Self.FK__order_goo__artic__440B1D61" FromRole="order_good" ToRole="good" />
+    <NavigationProperty Name="order" Relationship="Self.FK__order_goo__id_or__4316F928" FromRole="order_good" ToRole="order" />
+  </EntityType>
+  <EntityType Name="order_status">
+    <Key>
+      <PropertyRef Name="id_status" />
+    </Key>
+    <Property Name="id_status" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="order" Relationship="Self.FK__order__id_status__3F466844" FromRole="order_status" ToRole="order" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="user_profile">
+    <Key>
+      <PropertyRef Name="id_user" />
+    </Key>
+    <Property Name="id_user" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="middle_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="phone_number" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="is_admin" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="good_rate" Relationship="Self.FK__good_rate__id_us__2F10007B" FromRole="user_profile" ToRole="good_rate" />
+    <NavigationProperty Name="order" Relationship="Self.FK__order__id_user__403A8C7D" FromRole="user_profile" ToRole="order" />
+  </EntityType>
+  <EntityType Name="get_category">
+    <Key>
+      <PropertyRef Name="code_category" />
+      <PropertyRef Name="name" />
+    </Key>
+    <Property Name="code_category" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="get_goods">
+    <Key>
+      <PropertyRef Name="article_number" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="category_name" />
+      <PropertyRef Name="manufacturer_name" />
+    </Key>
+    <Property Name="article_number" Type="Int32" Nullable="false" />
+    <Property Name="photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="descrtiption" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="category_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="manufacturer_name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="price" Type="Decimal" Precision="30" Scale="10" />
+  </EntityType>
+  <EntityType Name="get_manufacturer">
+    <Key>
+      <PropertyRef Name="id_manufacturer" />
+      <PropertyRef Name="name" />
+    </Key>
+    <Property Name="id_manufacturer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__good__code_categ__2A4B4B5E">
+    <End Role="category" Type="Self.category" Multiplicity="1" />
+    <End Role="good" Type="Self.good" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="category">
+        <PropertyRef Name="code_category" />
+      </Principal>
+      <Dependent Role="good">
+        <PropertyRef Name="code_category" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__good__id_manufac__2B3F6F97">
+    <End Role="manufacturer" Type="Self.manufacturer" Multiplicity="1" />
+    <End Role="good" Type="Self.good" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="manufacturer">
+        <PropertyRef Name="id_manufacturer" />
+      </Principal>
+      <Dependent Role="good">
+        <PropertyRef Name="id_manufacturer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__good_para__artic__33D4B598">
+    <End Role="good" Type="Self.good" Multiplicity="1" />
+    <End Role="good_parameter" Type="Self.good_parameter" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="good">
+        <PropertyRef Name="article_number" />
+      </Principal>
+      <Dependent Role="good_parameter">
+        <PropertyRef Name="article_number" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__good_pric__artic__37A5467C">
+    <End Role="good" Type="Self.good" Multiplicity="1" />
+    <End Role="good_price" Type="Self.good_price" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="good">
+        <PropertyRef Name="article_number" />
+      </Principal>
+      <Dependent Role="good_price">
+        <PropertyRef Name="article_number" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__good_rate__artic__2E1BDC42">
+    <End Role="good" Type="Self.good" Multiplicity="1" />
+    <End Role="good_rate" Type="Self.good_rate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="good">
+        <PropertyRef Name="article_number" />
+      </Principal>
+      <Dependent Role="good_rate">
+        <PropertyRef Name="article_number" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__good_tax__articl__3A81B327">
+    <End Role="good" Type="Self.good" Multiplicity="1" />
+    <End Role="good_tax" Type="Self.good_tax" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="good">
+        <PropertyRef Name="article_number" />
+      </Principal>
+      <Dependent Role="good_tax">
+        <PropertyRef Name="article_number" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__order_goo__artic__440B1D61">
+    <End Role="good" Type="Self.good" Multiplicity="1" />
+    <End Role="order_good" Type="Self.order_good" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="good">
+        <PropertyRef Name="article_number" />
+      </Principal>
+      <Dependent Role="order_good">
+        <PropertyRef Name="article_number" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__good_rate__id_us__2F10007B">
+    <End Role="user_profile" Type="Self.user_profile" Multiplicity="1" />
+    <End Role="good_rate" Type="Self.good_rate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_profile">
+        <PropertyRef Name="id_user" />
+      </Principal>
+      <Dependent Role="good_rate">
+        <PropertyRef Name="id_user" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__order__id_status__3F466844">
+    <End Role="order_status" Type="Self.order_status" Multiplicity="1" />
+    <End Role="order" Type="Self.order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="order_status">
+        <PropertyRef Name="id_status" />
+      </Principal>
+      <Dependent Role="order">
+        <PropertyRef Name="id_status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__order__id_user__403A8C7D">
+    <End Role="user_profile" Type="Self.user_profile" Multiplicity="1" />
+    <End Role="order" Type="Self.order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_profile">
+        <PropertyRef Name="id_user" />
+      </Principal>
+      <Dependent Role="order">
+        <PropertyRef Name="id_user" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__order_goo__id_or__4316F928">
+    <End Role="order" Type="Self.order" Multiplicity="1" />
+    <End Role="order_good" Type="Self.order_good" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="order">
+        <PropertyRef Name="code_order" />
+      </Principal>
+      <Dependent Role="order_good">
+        <PropertyRef Name="id_order" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ShopDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="category" EntityType="Self.category" />
+    <EntitySet Name="good" EntityType="Self.good" />
+    <EntitySet Name="good_parameter" EntityType="Self.good_parameter" />
+    <EntitySet Name="good_price" EntityType="Self.good_price" />
+    <EntitySet Name="good_rate" EntityType="Self.good_rate" />
+    <EntitySet Name="good_tax" EntityType="Self.good_tax" />
+    <EntitySet Name="manufacturer" EntityType="Self.manufacturer" />
+    <EntitySet Name="order" EntityType="Self.order" />
+    <EntitySet Name="order_good" EntityType="Self.order_good" />
+    <EntitySet Name="order_status" EntityType="Self.order_status" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="user_profile" EntityType="Self.user_profile" />
+    <EntitySet Name="get_category" EntityType="Self.get_category" />
+    <EntitySet Name="get_goods" EntityType="Self.get_goods" />
+    <EntitySet Name="get_manufacturer" EntityType="Self.get_manufacturer" />
+    <AssociationSet Name="FK__good__code_categ__2A4B4B5E" Association="Self.FK__good__code_categ__2A4B4B5E">
+      <End Role="category" EntitySet="category" />
+      <End Role="good" EntitySet="good" />
+    </AssociationSet>
+    <AssociationSet Name="FK__good__id_manufac__2B3F6F97" Association="Self.FK__good__id_manufac__2B3F6F97">
+      <End Role="manufacturer" EntitySet="manufacturer" />
+      <End Role="good" EntitySet="good" />
+    </AssociationSet>
+    <AssociationSet Name="FK__good_para__artic__33D4B598" Association="Self.FK__good_para__artic__33D4B598">
+      <End Role="good" EntitySet="good" />
+      <End Role="good_parameter" EntitySet="good_parameter" />
+    </AssociationSet>
+    <AssociationSet Name="FK__good_pric__artic__37A5467C" Association="Self.FK__good_pric__artic__37A5467C">
+      <End Role="good" EntitySet="good" />
+      <End Role="good_price" EntitySet="good_price" />
+    </AssociationSet>
+    <AssociationSet Name="FK__good_rate__artic__2E1BDC42" Association="Self.FK__good_rate__artic__2E1BDC42">
+      <End Role="good" EntitySet="good" />
+      <End Role="good_rate" EntitySet="good_rate" />
+    </AssociationSet>
+    <AssociationSet Name="FK__good_tax__articl__3A81B327" Association="Self.FK__good_tax__articl__3A81B327">
+      <End Role="good" EntitySet="good" />
+      <End Role="good_tax" EntitySet="good_tax" />
+    </AssociationSet>
+    <AssociationSet Name="FK__order_goo__artic__440B1D61" Association="Self.FK__order_goo__artic__440B1D61">
+      <End Role="good" EntitySet="good" />
+      <End Role="order_good" EntitySet="order_good" />
+    </AssociationSet>
+    <AssociationSet Name="FK__good_rate__id_us__2F10007B" Association="Self.FK__good_rate__id_us__2F10007B">
+      <End Role="user_profile" EntitySet="user_profile" />
+      <End Role="good_rate" EntitySet="good_rate" />
+    </AssociationSet>
+    <AssociationSet Name="FK__order__id_status__3F466844" Association="Self.FK__order__id_status__3F466844">
+      <End Role="order_status" EntitySet="order_status" />
+      <End Role="order" EntitySet="order" />
+    </AssociationSet>
+    <AssociationSet Name="FK__order__id_user__403A8C7D" Association="Self.FK__order__id_user__403A8C7D">
+      <End Role="user_profile" EntitySet="user_profile" />
+      <End Role="order" EntitySet="order" />
+    </AssociationSet>
+    <AssociationSet Name="FK__order_goo__id_or__4316F928" Association="Self.FK__order_goo__id_or__4316F928">
+      <End Role="order" EntitySet="order" />
+      <End Role="order_good" EntitySet="order_good" />
+    </AssociationSet>
+    <FunctionImport Name="add_good">
+      <Parameter Name="article_number" Mode="In" Type="Int32" />
+      <Parameter Name="photo" Mode="In" Type="String" />
+      <Parameter Name="name" Mode="In" Type="String" />
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="code_category" Mode="In" Type="Int32" />
+      <Parameter Name="id_manufacturer" Mode="In" Type="Int32" />
+      <Parameter Name="price" Mode="In" Type="Decimal" />
+      <Parameter Name="tax" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="add_order">
+      <Parameter Name="id_user" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="delete_good">
+      <Parameter Name="article_number" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="delete_order">
+      <Parameter Name="code_order" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="get_good" ReturnType="Collection(ShopDBModel.get_good_Result)">
+      <Parameter Name="article_number" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="get_good_parameter" ReturnType="Collection(ShopDBModel.get_good_parameter_Result)">
+      <Parameter Name="article_code" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="get_order" ReturnType="Collection(ShopDBModel.get_order_Result)">
+      <Parameter Name="code_order" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="get_user_orders" ReturnType="Collection(ShopDBModel.get_user_orders_Result)">
+      <Parameter Name="id_user" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SignIn">
+      <Parameter Name="phone_number" Mode="In" Type="String" />
+      <Parameter Name="password" Mode="In" Type="String" />
+      <Parameter Name="id_user" Mode="InOut" Type="Int32" />
+      <Parameter Name="is_admin" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="SignUp">
+      <Parameter Name="last_name" Mode="In" Type="String" />
+      <Parameter Name="first_name" Mode="In" Type="String" />
+      <Parameter Name="middle_name" Mode="In" Type="String" />
+      <Parameter Name="phone_number" Mode="In" Type="String" />
+      <Parameter Name="password" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(ShopDBModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(ShopDBModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <FunctionImport Name="update_good">
+      <Parameter Name="article_number" Mode="In" Type="Int32" />
+      <Parameter Name="photo" Mode="In" Type="String" />
+      <Parameter Name="name" Mode="In" Type="String" />
+      <Parameter Name="description" Mode="In" Type="String" />
+      <Parameter Name="code_category" Mode="In" Type="Int32" />
+      <Parameter Name="id_manufacturer" Mode="In" Type="Int32" />
+      <Parameter Name="price" Mode="In" Type="Decimal" />
+      <Parameter Name="tax" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="update_order">
+      <Parameter Name="code_order" Mode="In" Type="Int32" />
+      <Parameter Name="id_status" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="get_good_Result">
+    <Property Type="Int32" Name="article_number" Nullable="false" />
+    <Property Type="String" Name="name" Nullable="false" MaxLength="150" />
+    <Property Type="String" Name="descrtiption" Nullable="true" />
+    <Property Type="String" Name="photo" Nullable="true" />
+    <Property Type="String" Name="manufacturer_name" Nullable="false" MaxLength="150" />
+    <Property Type="String" Name="category_name" Nullable="false" MaxLength="50" />
+    <Property Type="Decimal" Name="price" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="tax" Nullable="true" Precision="5" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="get_good_parameter_Result">
+    <Property Type="Int32" Name="id_good_parameter" Nullable="false" />
+    <Property Type="Int32" Name="article_number" Nullable="false" />
+    <Property Type="String" Name="name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="value" Nullable="false" MaxLength="150" />
+  </ComplexType>
+  <ComplexType Name="get_order_Result">
+    <Property Type="Int32" Name="code_order" Nullable="false" />
+    <Property Type="DateTime" Name="date_order" Nullable="false" Precision="23" />
+    <Property Type="String" Name="name" Nullable="false" MaxLength="15" />
+    <Property Type="String" Name="client" Nullable="true" MaxLength="152" />
+    <Property Type="Decimal" Name="order_sum" Nullable="true" Precision="19" />
+  </ComplexType>
+  <ComplexType Name="get_user_orders_Result">
+    <Property Type="Int32" Name="code_order" Nullable="true" />
+    <Property Type="DateTime" Name="date_order" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="id_status" Nullable="true" />
+    <Property Type="Int32" Name="id_user" Nullable="true" />
+    <Property Type="Decimal" Name="sum_order" Nullable="true" Precision="19" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>
